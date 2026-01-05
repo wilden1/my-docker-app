@@ -1,21 +1,20 @@
-version: '3.8'
-
 services:
   web:
     build: .
     ports:
-      - "8080:80"
+      - "9000:80"
     networks:
       - my-network
 
   db:
     image: mariadb:latest
     environment:
-      MYSQL_ROOT_PASSWORD: password123
-      MYSQL_DATABASE: web_db
+      MYSQL_ROOT_PASSWORD: rahasia123
+      MYSQL_DATABASE: belajar_docker
+    volumes:
+      - ./data_db:/var/lib/mysql  # <--- MAGIC: Simpan data kat laptop!
     networks:
       - my-network
 
 networks:
   my-network:
-    driver: bridge
