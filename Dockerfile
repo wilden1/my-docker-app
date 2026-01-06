@@ -1,8 +1,8 @@
-# Step 1: Ambil 'Nginx' (Web Server) yang paling ringan sebagai base
-FROM nginx:alpine
+# Guna image php yang dah siap ada apache (senang sikit)
+FROM php:8.2-apache
 
-# Step 2: Salin file index.html dari laptop kau masuk ke dalam folder server dalam Docker
-COPY index.html /usr/share/nginx/html/index.html
+# Install extension untuk bagi PHP boleh borak dengan MariaDB/MySQL
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Step 3: Bagitahu Docker kita nak buka port 80
-EXPOSE 80
+# Salin kod kita masuk dalam folder web apache
+COPY . /var/www/html/

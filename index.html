@@ -1,1 +1,32 @@
-<h1>Gila ah! Edit kat sini, terus berubah kat browser Wildan Wafi Bin Ahmad/Haifa Illia</h1>
+<?php
+$host = 'db';
+$user = 'root';
+$pass = 'rahasia123';
+$db   = 'belajar_docker';
+
+// 1. Sambung ke DB
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Gagal sambung: " . $conn->connect_error);
+}
+
+// 2. ARAHAN KERJA: Buat Table kalau belum ada
+$sql_buat_table = "CREATE TABLE IF NOT EXISTS pelawat (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    nama VARCHAR(50), 
+    masa TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+$conn->query($sql_buat_table);
+
+// 3. ARAHAN KERJA: Masukkan nama 'Wildan' secara automatik
+$conn->query("INSERT INTO pelawat (nama) VALUES ('Wildan')");
+
+// 4. Paparkan hasil kat website
+echo "<h1>Data Berjaya Ditulis!</h1>";
+$res = $conn->query("SELECT * FROM pelawat");
+
+while($row = $res->fetch_assoc()) {
+    echo "ID: " . $row['id'] . " | Nama: " . $row['nama'] . " | Masa: " . $row['masa'] . "<br>";
+}
+?>

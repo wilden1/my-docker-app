@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "9000:80"
+    volumes:
+      - .:/var/www/html  # <--- PINDAH KAT SINI (Sebab ini folder PHP)
     networks:
       - my-network
 
@@ -12,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: rahasia123
       MYSQL_DATABASE: belajar_docker
     volumes:
-      - ./data_db:/var/lib/mysql  # <--- MAGIC: Simpan data kat laptop!
+      - ./data_db:/var/lib/mysql  # <--- Kekalkan yang ni (Untuk simpan data DB)
     networks:
       - my-network
 
