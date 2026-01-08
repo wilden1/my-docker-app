@@ -4,7 +4,7 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - "80:80"  # Kau akses localhost (tanpa :9000)
+      - "8888:80"  # Kau akses localhost (tanpa :9000)
     volumes:
       - .:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
@@ -15,14 +15,18 @@ services:
 
   web:
     build: .
-     
     volumes:
       - .:/var/www/html
     environment:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
+    # --- KEMASKINI DI SINI ---
+    depends_on:
+      db:
+        condition: service_healthy
+    # -------------------------
     networks:
-      - my-network
+      - my-network 
 
   db:
     image: mariadb:latest
@@ -33,6 +37,16 @@ services:
       - ./data_db:/var/lib/mysql
     networks:
       - my-network
+
+# --- TAMBAH DI SINI ---
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    # ----------------------
+
+
 
   # --- TAMBAH DI SINI ---
   adminer:
