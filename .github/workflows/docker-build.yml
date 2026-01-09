@@ -3,7 +3,7 @@ name: Push to Docker Hub
 on:
   push:
     branches: [ "main" ]
-
+      tags: [ "v*" ] # Dia akan jalan kalau kau push tag bermula dengan 'v'
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -26,6 +26,7 @@ jobs:
           context: .
           push: true
           # Gunakan variable yang sama untuk tag
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-docker-app:latest
-
+          tags:
+             ${{ secrets.DOCKERHUB_USERNAME }}/my-docker-app:latest
+             ${{ secrets.DOCKERHUB_USERNAME }}/my-docker-app:${{ github.ref_name }}
 
