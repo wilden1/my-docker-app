@@ -28,5 +28,4 @@ jobs:
           # Gunakan variable yang sama untuk tag
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-docker-app:latest
 
-          # Gantikan 'wildan' dengan username Docker Hub kau yang betul
-          tags: ${{ secrets.DOCKER_USERNAME }}/my-docker-app:latest
+
