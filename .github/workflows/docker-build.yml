@@ -1,9 +1,12 @@
 name: Push to Docker Hub
 
-on:
+    on:
   push:
-    branches: [ "main" ]
-      tags: [ "v*" ] # Dia akan jalan kalau kau push tag bermula dengan 'v'
+    branches:
+      - "main"
+    tags:
+      - "v*"
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
