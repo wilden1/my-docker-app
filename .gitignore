@@ -1,0 +1,7 @@
+data_db/
+.env
+backup_wildan.sql
+*.log
+
+actions-runner/
+actions-runner/
