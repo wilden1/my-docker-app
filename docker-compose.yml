@@ -3,6 +3,7 @@ services:
   # 1. NGINX: Ini adalah pintu utama (Gatekeeper)
   nginx:
     image: nginx:alpine
+    restart: always
     ports:
       - "8888:80"  # Kau akses localhost (tanpa :9000)
     volumes:
@@ -30,7 +31,8 @@ services:
 
   db:
     image: mariadb:latest
-    environment:
+    restart: always 
+   environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
     volumes:
@@ -51,6 +53,7 @@ services:
   # --- TAMBAH DI SINI ---
   adminer:
     image: adminer:latest
+    restart: always
     ports:
       - "8080:8080"
     networks:
