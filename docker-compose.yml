@@ -1,8 +1,11 @@
 services:
   # 1. PHP Application
   app:
+    image: php:8.2-fpm
     build: .
     restart: always
+    ports:
+      - "9000:9000"  # Tambah ini jika tiada
     volumes:
       - .:/var/www/html
     networks:
