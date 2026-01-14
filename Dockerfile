@@ -1,14 +1,14 @@
-# Stage 1: Build (Kita compile extension kat sini)
-FROM php:8.2-apache AS builder
-RUN docker-php-ext-install mysqli
+# Stage 1: Build
+FROM php:8.2-fpm AS builder
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Stage 2: Final (Kita cuma ambil apa yang perlu)
-FROM php:8.2-apache
-# Copy extension yang dah siap dicompile tadi
+# Stage 2: Final
+FROM php:8.2-fpm
+# Salin extension yang dah siap
 COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
-COPY --from=builder /usr/local/etc/php/conf.d/docker-php-ext-mysqli.ini /usr/local/etc/php/conf.d/
+COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 
 # Salin kod aplikasi
 COPY . /var/www/html/
 
-EXPOSE 80
+WORKDIR /var/www/html
